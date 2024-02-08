@@ -1,0 +1,59 @@
+@import './colors.css';
+
+.ship-placement {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  h2 {
+    margin-top: 3rem;
+    font-size: 2rem;
+  }
+
+  p {
+    margin-top: 0.25rem;
+    letter-spacing: 0.05rem;
+
+    code {
+      background-color: black;
+      color: var(--yellow-dark);
+      padding: 0.1rem 0.3rem;
+      margin: 0 0.2rem;
+      border-radius: 8px;
+    }
+  }
+
+  .placement-board {
+    margin-top: 3rem;
+    padding: 1rem;
+    background: var(--yellow-dark);
+
+    .placement-grid {
+      display: grid;
+      grid-template-columns: repeat(9, 1fr);
+      border-left: 1px solid black;
+      border-top: 1px solid black;
+    }
+
+    .placement-square {
+      width: 40px;
+      height: 40px;
+      border-right: 1px solid black;
+      border-bottom: 1px solid black;
+      cursor: pointer;
+    }
+
+    .placement-hover {
+      background-color: var(--blue-light);
+    }
+
+    .placement-ship {
+      background-color: var(--blue-dark);
+      cursor: not-allowed;
+    }
+
+    .placement-invalid {
+      cursor: not-allowed;
+    }
+  }
+}

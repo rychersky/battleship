@@ -1,0 +1,8 @@
+* {
+  --text: rgb(220, 220, 220);
+  --body-bg: rgb(40, 40, 40);
+  --blue-dark: rgb(56, 56, 175);
+  --blue-light: rgb(82, 82, 251);
+  --yellow-dark: rgb(204, 160, 0);
+  --yellow-light: rgb(255, 200, 0);
+}

@@ -1,4 +1,4 @@
-const { Gameboard, Ship } = require('./main');
+const { Gameboard, Ship } = require('./game');
 
 describe('Ship', () => {
   test('hit() adds hits and checks length', () => {
