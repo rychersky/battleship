@@ -40,10 +40,10 @@ describe('Gameboard', () => {
     const board = new Gameboard();
     const ship = new Ship(2, 'horizontal', { x: 2, y: 2 });
     board.placeShip(ship);
-    const firstAttack = board.receiveAttack(2, 2);
-    expect(firstAttack).toBeFalsy();
-    const secondAttack = board.receiveAttack(3, 2);
-    expect(secondAttack).toBeTruthy();
+    board.receiveAttack(2, 2);
+    expect(board.checkGameEnd()).toBeFalsy();
+    board.receiveAttack(3, 2);
+    expect(board.checkGameEnd()).toBeTruthy();
   });
 });
 

@@ -1,12 +1,15 @@
 import './play-game.scss';
 import { Gameboard, Ship } from '../data/game';
+import { shipPlacement } from './ship-placement';
 
-const playerGameboard = new Gameboard();
-const computerGameboard = new Gameboard();
-
-document.addEventListener('click', () => console.log(computerGameboard));
+let playerGameboard = new Gameboard();
+let computerGameboard = new Gameboard();
 
 export function playGame(shipsPlaced) {
+  // clean state for new game if Player replays
+  playerGameboard = new Gameboard();
+  computerGameboard = new Gameboard();
+
   shipsPlaced.forEach((ship) => {
     const newShip = new Ship(ship.length, ship.orientation, ship.coordinates);
     playerGameboard.placeShip(newShip);
@@ -15,7 +18,68 @@ export function playGame(shipsPlaced) {
   initPageElements();
   initComputerBoard();
   placeShipsOnPage('player', playerGameboard);
-  // placeShipsOnPage('computer', computerGameboard);
+  playerTurn();
+}
+
+function computerTurn() {
+  const title = document.querySelector('.game h2');
+  title.innerHTML = `Computer's turn`;
+  title.classList.remove('player-turn');
+  title.classList.add('computer-turn');
+
+  const boardSquares = document.querySelectorAll('.computer .grid-square');
+  boardSquares.forEach((sq) => {
+    sq.classList.add('not-your-turn');
+    sq.removeEventListener('click', playerClickHandler);
+  });
+
+  setTimeout(() => {
+    let x = ((Math.random().toFixed(1) * 10) % 9) + 1;
+    let y = ((Math.random().toFixed(1) * 10) % 9) + 1;
+
+    while (playerGameboard.board[`x${x}-y${y}`].hit) {
+      x = ((Math.random().toFixed(1) * 10) % 9) + 1;
+      y = ((Math.random().toFixed(1) * 10) % 9) + 1;
+    }
+
+    playerGameboard.receiveAttack(x, y);
+    const squareHit = document.querySelector(
+      `.player .grid-square[data-x="${x}"][data-y="${y}"]`
+    );
+
+    if (playerGameboard.board[`x${x}-y${y}`].ship) {
+      squareHit.classList.add('shot-hit');
+    } else {
+      squareHit.classList.add('shot-miss');
+    }
+
+    if (playerGameboard.checkGameEnd()) {
+      gameOver('Computer');
+    } else {
+      playerTurn();
+    }
+  }, 1000);
+}
+
+function gameOver(winner) {
+  const title = document.querySelector('.game h2');
+  title.innerHTML = `${winner} wins!`;
+  title.classList.remove('player-turn');
+  title.classList.remove('computer-turn');
+  title.classList.add('game-over');
+
+  const boardSquares = document.querySelectorAll('.computer .grid-square');
+  boardSquares.forEach((sq) => {
+    sq.classList.add('not-your-turn');
+    sq.removeEventListener('click', playerClickHandler);
+  });
+
+  const restartButton = document.createElement('button');
+  restartButton.classList.add('game-over-button');
+  restartButton.type = 'button';
+  restartButton.innerHTML = 'Play another game';
+  restartButton.addEventListener('click', shipPlacement);
+  document.querySelector('.game').appendChild(restartButton);
 }
 
 function initPageElements() {
@@ -117,5 +181,39 @@ function placeShipsOnPage(player, board) {
       );
       sq.classList.add('ship');
     }
+  });
+}
+
+function playerClickHandler(e) {
+  const square = e.target;
+  const x = square.dataset.x;
+  const y = square.dataset.y;
+  const coordinateInfo = computerGameboard.board[`x${x}-y${y}`];
+  if (!coordinateInfo.hit) {
+    computerGameboard.receiveAttack(x, y);
+    if (coordinateInfo.ship) {
+      square.classList.add('shot-hit');
+    } else {
+      square.classList.add('shot-miss');
+    }
+
+    if (computerGameboard.checkGameEnd()) {
+      gameOver('Player');
+    } else {
+      computerTurn();
+    }
+  }
+}
+
+function playerTurn() {
+  const title = document.querySelector('.game h2');
+  title.innerHTML = `Player's turn`;
+  title.classList.remove('computer-turn');
+  title.classList.add('player-turn');
+
+  const boardSquares = document.querySelectorAll('.computer .grid-square');
+  boardSquares.forEach((sq) => {
+    sq.classList.remove('not-your-turn');
+    sq.addEventListener('click', playerClickHandler);
   });
 }

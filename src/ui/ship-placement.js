@@ -1,3 +1,4 @@
+import { playGame } from './play-game';
 import './ship-placement.scss';
 
 const placementState = {
@@ -7,6 +8,10 @@ const placementState = {
 };
 
 export function shipPlacement() {
+  // clean state for new game if Player replays
+  placementState.shipsLeft = [5, 4, 3, 2, 1];
+  placementState.shipsPlaced = [];
+
   createGrid();
   document.addEventListener('keydown', handleSpacebar);
 
@@ -73,7 +78,9 @@ function handleClick(e) {
       orientation: placementState.orientation,
     });
     placementState.shipsLeft.shift();
-    console.log(placementState);
+    if (placementState.shipsLeft.length === 0) {
+      playGame(placementState.shipsPlaced);
+    }
   }
 }
 

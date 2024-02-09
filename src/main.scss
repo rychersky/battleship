@@ -15,9 +15,24 @@ body {
 }
 
 header {
-  background: var(--blue-dark);
+  background-image: linear-gradient(
+    180deg,
+    hsl(240deg 52% 45%) 0%,
+    hsl(240deg 51% 47%) 9%,
+    hsl(240deg 51% 50%) 18%,
+    hsl(240deg 54% 52%) 27%,
+    hsl(240deg 59% 53%) 36%,
+    hsl(240deg 63% 55%) 45%,
+    hsl(240deg 68% 57%) 55%,
+    hsl(240deg 73% 59%) 64%,
+    hsl(240deg 78% 60%) 73%,
+    hsl(240deg 83% 62%) 82%,
+    hsl(240deg 89% 64%) 91%,
+    hsl(240deg 95% 65%) 100%
+  );
   padding: 1.5rem;
   display: flex;
   justify-content: center;
   font-size: 2.5rem;
+  box-shadow: var(--box-shadow);
 }

@@ -16,6 +16,10 @@
     &.computer-turn {
       color: var(--red-light);
     }
+
+    &.game-over {
+      color: var(--yellow-dark);
+    }
   }
 
   .game-boards {
@@ -26,20 +30,25 @@
     h3 {
       font-size: 1.6rem;
       text-align: center;
+      background: var(--gray-light);
+      padding: 0.4rem;
     }
 
     .player h3 {
       color: var(--blue-light);
+      border: 1px solid var(--blue-dark);
     }
 
     .computer h3 {
       color: var(--red-light);
+      border: 1px solid var(--red-dark);
     }
 
     .game-board {
       margin-top: 1rem;
       padding: 1rem;
       background: var(--yellow-dark);
+      box-shadow: var(--box-shadow);
 
       .board-grid {
         display: grid;
@@ -54,8 +63,20 @@
           border-bottom: 1px solid black;
           cursor: pointer;
 
-          & + .ship {
+          &.ship {
             background-color: var(--blue-dark);
+          }
+
+          &.shot-hit {
+            background-color: var(--red-dark);
+          }
+
+          &.shot-miss {
+            background-color: var(--gray-light);
+          }
+
+          &.not-your-turn {
+            cursor: not-allowed;
           }
         }
       }
@@ -64,6 +85,22 @@
     .player .game-board,
     .player .game-board .grid-square {
       cursor: not-allowed;
+    }
+  }
+
+  .game-over-button {
+    margin-top: 4rem;
+    color: var(--text);
+    background: var(--blue-dark);
+    font-size: 2rem;
+    padding: 1rem;
+    border: 0;
+    border-radius: 0.5rem;
+    box-shadow: var(--box-shadow);
+    cursor: pointer;
+
+    &:active {
+      transform: translateY(1px);
     }
   }
 }

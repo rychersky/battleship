@@ -60,12 +60,8 @@ class Gameboard {
       location.hit = true;
       if (location.ship) {
         location.ship.hit();
-        if (location.ship.sunk) {
-          return this.checkGameEnd();
-        }
       }
     }
-    return false;
   }
 }
 
