@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
-@import './ui/colors.css';
+@import './ui/colors.scss';
 
 * {
   padding: 0;
@@ -8,7 +8,7 @@
 }
 
 body {
-  background: var(--body-bg);
+  background: var(--gray-dark);
   font-family: 'Lato', sans-serif;
   color: var(--text);
   height: 100vh;

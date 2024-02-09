@@ -1,0 +1,69 @@
+@import './colors.scss';
+
+.game {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  h2 {
+    margin-top: 3rem;
+    font-size: 3rem;
+
+    &.player-turn {
+      color: var(--blue-light);
+    }
+
+    &.computer-turn {
+      color: var(--red-light);
+    }
+  }
+
+  .game-boards {
+    display: flex;
+    gap: 8rem;
+    margin-top: 4rem;
+
+    h3 {
+      font-size: 1.6rem;
+      text-align: center;
+    }
+
+    .player h3 {
+      color: var(--blue-light);
+    }
+
+    .computer h3 {
+      color: var(--red-light);
+    }
+
+    .game-board {
+      margin-top: 1rem;
+      padding: 1rem;
+      background: var(--yellow-dark);
+
+      .board-grid {
+        display: grid;
+        grid-template-columns: repeat(9, 1fr);
+        border-left: 1px solid black;
+        border-top: 1px solid black;
+
+        .grid-square {
+          width: 40px;
+          height: 40px;
+          border-right: 1px solid black;
+          border-bottom: 1px solid black;
+          cursor: pointer;
+
+          & + .ship {
+            background-color: var(--blue-dark);
+          }
+        }
+      }
+    }
+
+    .player .game-board,
+    .player .game-board .grid-square {
+      cursor: not-allowed;
+    }
+  }
+}

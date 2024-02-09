@@ -1,9 +1,9 @@
-import './ship-placement.css';
+import './ship-placement.scss';
 
 const placementState = {
   orientation: 'horizontal',
   shipsLeft: [5, 4, 3, 2, 1],
-  chosenCoordinates: [],
+  shipsPlaced: [],
 };
 
 export function shipPlacement() {
@@ -64,13 +64,16 @@ function handleClick(e) {
       );
       sq.classList.add('placement-ship');
     }
-    placementState.chosenCoordinates.push({
-      x: square.dataset.x,
-      y: square.dataset.y,
+    placementState.shipsPlaced.push({
+      coordinates: {
+        x: Number(square.dataset.x),
+        y: Number(square.dataset.y),
+      },
       length: placementState.shipsLeft[0],
       orientation: placementState.orientation,
     });
     placementState.shipsLeft.shift();
+    console.log(placementState);
   }
 }
 
